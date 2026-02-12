@@ -150,3 +150,93 @@ export interface Category {
   description?: string;
   icon?: string;
 }
+```
+
+## 🔗 API Endpoints
+
+The frontend communicates with the backend using a RESTful API.
+
+**Base URL** (set in `.env.local` or `.env`):
+```env
+NEXT_PUBLIC_API=https://your-api-domain.com/api
+# Example: https://api.yourfoodapp.com/api
+
+Authentication & User
+
+POST /api/auth/register — Create new user account
+POST /api/auth/login — Login and receive JWT token
+POST /api/auth/logout — Logout (optional)
+GET /api/auth/me — Get current logged-in user profile
+PUT /api/auth/profile — Update profile (name, phone, avatar, etc.)
+POST /api/auth/forgot-password — Send password reset email
+POST /api/auth/reset-password — Reset password with token
+
+Restaurants & Shops
+
+GET /api/restaurants — List all restaurants (with filters & pagination)
+GET /api/restaurants/:id — Get single restaurant details
+GET /api/restaurants/:id/menu — Get menu items of a restaurant
+GET /api/restaurants/nearby — Restaurants near user location
+GET /api/restaurants/search — Search restaurants by name, cuisine, location
+
+Menu & Items
+
+GET /api/menu — Search menu items globally
+GET /api/menu/:id — Get single food item details
+GET /api/categories — List all categories / cuisines
+
+Cart
+
+GET /api/cart — Get current user's cart
+POST /api/cart/add — Add item to cart
+PUT /api/cart/update — Update item quantity
+DELETE /api/cart/remove/:itemId — Remove item from cart
+DELETE /api/cart/clear — Clear entire cart
+
+Orders
+
+POST /api/orders — Create new order (place order / checkout)
+GET /api/orders — List user's order history
+GET /api/orders/:id — Get order details
+PUT /api/orders/:id/cancel — Cancel order (if allowed)
+GET /api/orders/:id/status — Get order status
+
+Payments
+
+POST /api/payments/create — Create payment session (Razorpay, SSLCommerz, Stripe, etc.)
+POST /api/payments/verify — Verify payment (webhook/callback)
+GET /api/payments/:orderId — Get payment status for order
+
+Addresses
+
+GET /api/addresses — List saved delivery addresses
+POST /api/addresses — Add new address
+PUT /api/addresses/:id — Update address
+DELETE /api/addresses/:id — Delete address
+GET /api/addresses/default — Get default address
+
+Reviews & Ratings
+
+POST /api/reviews — Add review & rating
+GET /api/reviews/restaurant/:id — Get reviews for a restaurant
+GET /api/reviews/order/:id — Get review for specific order
+
+Offers / Coupons
+
+GET /api/offers — List active promotions
+POST /api/coupons/apply — Apply coupon to cart/order
+POST /api/coupons/validate — Check if coupon is valid
+
+Admin / Restaurant Panel (protected)
+
+GET /api/admin/orders — View all orders
+PUT /api/admin/orders/:id/status — Update order status (preparing, delivered, etc.)
+GET /api/restaurant-owner/menu — Get own restaurant menu
+POST /api/restaurant-owner/items — Add new menu item
+
+Note:
+
+Most endpoints support query parameters for filtering, sorting, pagination (e.g. ?page=1&limit=20&sort=rating).
+Refer to your backend documentation or Swagger/OpenAPI for exact request/response formats and required fields.
+
+```
